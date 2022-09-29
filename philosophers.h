@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:06:32 by anastacia         #+#    #+#             */
-/*   Updated: 2022/09/29 17:34:21 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/09/29 18:20:22 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 # include <pthread.h>
 
 typedef struct s_data

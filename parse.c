@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:36:45 by anastacia         #+#    #+#             */
-/*   Updated: 2022/09/29 17:34:14 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/09/29 17:51:51 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	parse_info(char **argv, t_data *data)
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		data->times_must_eat = ft_atoi(argv[5]);
+	else
+		data->times_must_eat = 0;
 	create_philos(data->forks, data);
 }
 
