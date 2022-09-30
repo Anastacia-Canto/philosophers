@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:05:28 by anastacia         #+#    #+#             */
-/*   Updated: 2022/09/29 18:21:41 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/09/30 17:25:19 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,21 @@
 
 void	*hello_philo(void *args)
 {
-	t_philo	*philo;
+	t_philo			*philo;
+	struct timeval	time;
 
 	philo = (t_philo *)args;
-	sleep(2);
-	printf("Hello, I am philo #%d\n", philo->id);
-	printf("time to eat: %d\n", philo->data.time_to_eat);
+	gettimeofday(&time, NULL);
+	philo->start = timer();
+	eat(philo);
+	nap_time(philo);
 	return (NULL);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data			data;
-	struct timeval	start;
-	struct timeval	end;
-
-	gettimeofday(&start, NULL);
 	if (argc == 5 || argc == 6)
-		parse_info(argv, &data);
+		parse_info(argv);
 	else
 	{
 		printf("Incorrect arguments!\n");
@@ -39,7 +36,5 @@ int	main(int argc, char **argv)
 		printf(" [time_to_eat] [time_to_sleep]");
 		printf(" [number_of_times_each_philosopher_must_eat](optional)\n");
 	}
-	gettimeofday(&end, NULL);
-	printf("time: %ld\n", ((end.tv_sec * 1000) - (start.tv_sec * 1000)));
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:21:19 by anastacia         #+#    #+#             */
-/*   Updated: 2022/09/29 15:27:20 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/09/30 17:24:42 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
 int	ft_isdigit(int c)
 {

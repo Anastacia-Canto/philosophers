@@ -6,7 +6,7 @@
 #    By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/29 14:07:06 by anastacia         #+#    #+#              #
-#    Updated: 2022/09/29 16:46:41 by anastacia        ###   ########.fr        #
+#    Updated: 2022/09/30 17:23:47 by anastacia        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ $(VERBOSE).SILENT:
 
 NAME = philo
 
-SRC = main ft_atoi parse\
+SRC = main utils/ft_atoi utils/utils parse routine\
 
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -I. -fsanitize=address -lpthread
+CFLAGS = -Wall -Werror -Wextra -I. -lpthread -fsanitize=thread -pthread
 
 all: $(NAME)
 
