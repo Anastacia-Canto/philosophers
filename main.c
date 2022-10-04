@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:05:28 by anastacia         #+#    #+#             */
-/*   Updated: 2022/09/30 17:25:19 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/04 19:41:51 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 void	*hello_philo(void *args)
 {
 	t_philo			*philo;
-	struct timeval	time;
+	int				left_fork;
+	int				right_fork;
 
 	philo = (t_philo *)args;
-	gettimeofday(&time, NULL);
 	philo->start = timer();
-	eat(philo);
-	nap_time(philo);
+	left_fork = philo->id - 1;
+	right_fork = (philo->id + 1) % data()->nb_philos;
+	take_fork(philo, left_fork);
+	take_fork(philo, right_fork);
+	to_eat(philo);
+	leave_fork(left_fork, right_fork);
+	to_sleep(philo);
 	return (NULL);
 }
 
