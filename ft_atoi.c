@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 15:21:19 by anastacia         #+#    #+#             */
-/*   Updated: 2022/09/30 17:24:42 by anastacia        ###   ########.fr       */
+/*   Created: 2022/10/07 14:41:26 by anastacia         #+#    #+#             */
+/*   Updated: 2022/10/07 14:41:37 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philo.h"
 
 int	ft_isdigit(int c)
 {

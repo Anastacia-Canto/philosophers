@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 14:06:32 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/04 19:40:25 by anastacia        ###   ########.fr       */
+/*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
+/*   Updated: 2022/10/07 17:03:57 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -19,39 +19,51 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+enum e_bool
+{
+	false,
+	true
+};
+
 typedef struct s_philo
 {
-	int				id;
-	pthread_t		tid;
-	long long		start;
-	long long		now;
-	int				alive;
+	pthread_t	tid;
+	int			id;
+	long long	start;
+	long long	last_meal;
+	int			left;
+	int			right;
 }	t_philo;
 
 typedef struct s_data
 {
-	int				nb_philos;
+	int				nb_philo;
 	long long		time_to_die;
 	long long		time_to_eat;
 	long long		time_to_sleep;
-	int				times_must_eat;
+	int				nb_meals;
+	int				death;
+	t_philo			*philo;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	mutex_death;
 }	t_data;
 
 t_data		*data(void);
-int			ft_atoi(const char *str);
+void		parse(char **argv);
+void		*philosophers(void *args);
+void		*check(void *args);
+int			create_threads(void);
+/*Routine*/
+int			define_forks(t_philo *philo);
+int			take_forks(t_philo *philo, int position);
+int			to_eat(t_philo *philo);
+int			to_sleep_and_think(t_philo *philo);
+/*Utils*/
 int			ft_isdigit(int c);
 int			ft_isspace(char c);
-void		*hello_philo(void *args);
-void		parse_info(char **argv);
-void		create_philos(void);
+int			ft_atoi(const char *str);
 long long	timer(void);
-/*Routine*/
-void	take_fork(t_philo *philo, int position);
-void	leave_fork(int left, int right);
-void	to_eat(t_philo *philo);
-void	to_sleep(t_philo *philo);
-void	to_wait(long long time);
-void	free_all(t_philo *philo);
+void		print(t_philo *philo, char *msg);
+void		to_wait(long long time);
 
 #endif

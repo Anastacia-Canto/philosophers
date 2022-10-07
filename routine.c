@@ -5,43 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 18:36:29 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/04 19:49:57 by anastacia        ###   ########.fr       */
+/*   Created: 2022/10/07 15:39:51 by anastacia         #+#    #+#             */
+/*   Updated: 2022/10/07 17:08:10 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
-void	take_fork(t_philo *philo, int position)
-{	
-	if (pthread_mutex_lock(&data()->forks[position]) == 0)
-	{
-		philo->now = timer();
-		printf("%lld %d has taken a fork\n", (philo->now - philo->start), philo->id);
-	}
-	else
-		return ;
+int	define_forks(t_philo *philo)
+{
+	philo->left = philo->id;
+	philo->right = philo->id - 1;
+	if (philo->id == 1)
+		philo->right = 0;
+	if (philo->id == data()->nb_philo)
+		philo->left = 0;
+	return (0);
 }
 
-void	leave_fork(int left, int right)
+int	take_forks(t_philo *philo, int position)
 {
-	pthread_mutex_unlock(&data()->forks[left]);
-	pthread_mutex_unlock(&data()->forks[right]);
+	pthread_mutex_lock(&data()->forks[position]);
+	print(philo, "has taken a fork");
+	return (0);
 }
 
-void	to_eat(t_philo *philo)
+int	to_eat(t_philo *philo)
 {
-	philo->now = timer();
-	printf("%lld %d is eating\n", (philo->now - philo->start), philo->id);
+	print(philo, "is eating");
+	philo->last_meal = timer();
 	to_wait(data()->time_to_eat);
-	return ;
+	pthread_mutex_unlock(&data()->forks[philo->left]);
+	pthread_mutex_unlock(&data()->forks[philo->right]);
+	return (0);
 }
 
-void	to_sleep(t_philo *philo)
+int	to_sleep_and_think(t_philo *philo)
 {
-	philo->now = timer();
-	printf("%lld %d is sleeping\n", (philo->now - philo->start), philo->id);
+	print(philo, "is sleeping");
 	to_wait(data()->time_to_sleep);
-	philo->now = timer();
-	printf("%lld %d is thinking\n", (philo->now - philo->start), philo->id);
+	print(philo, "is thinking");
+	return (0);
 }
