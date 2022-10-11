@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:54:02 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 10:55:22 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 14:17:30 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,20 @@ void	to_wait(long long time)
 	while (actual_time - initial_time <= time)
 		actual_time = timer();
 	return ;
+}
+
+int	check_life(t_philo *philo)
+{
+	if (timer() - philo->last_meal > data()->time_to_die)
+	{
+		print(philo, "died");
+		data()->death = true;
+		return (1);
+	}
+	if (philo->meals == data()->nb_meals && philo->meals > 0)
+	{
+		philo->finish = true;
+		return (1);
+	}
+	return (0);
 }

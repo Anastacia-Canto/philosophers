@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:39:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 13:00:25 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 14:17:36 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	define_forks(t_philo *philo)
 	if (philo->id == 1)
 		philo->right = 0;
 	if (philo->id == data()->nb_philo)
-		philo->left = 0;
+	{
+		philo->right = 0;
+		philo->left = philo->id - 1;
+	}
 	philo->left_status = false;
 	philo->right_status = false;
 	return (0);
@@ -79,22 +82,6 @@ int	to_sleep_and_think(t_philo *philo)
 		print(philo, "is sleeping");
 		to_wait(data()->time_to_sleep);
 		print(philo, "is thinking");
-	}
-	return (0);
-}
-
-int	check_life(t_philo *philo)
-{
-	if (timer() - philo->last_meal > data()->time_to_die)
-	{
-		print(philo, "died");
-		data()->death = true;
-		return (1);
-	}
-	if (philo->meals == data()->nb_meals && philo->meals > 0)
-	{
-		philo->finish = true;
-		return (1);
 	}
 	return (0);
 }

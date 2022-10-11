@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 12:59:22 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 13:47:26 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,15 @@ typedef struct s_data
 	pthread_mutex_t	mutex_death;
 }	t_data;
 
+/*Parsing and initiating*/
 t_data		*data(void);
 void		parse(char **argv);
 void		*philosophers(void *args);
 int			create_threads(void);
+void		init_mutexes(void);
+void		destroy_mutexes(void);
 /*Routine*/
+void		init_philos(t_philo *philo);
 int			define_forks(t_philo *philo);
 int			take_forks(t_philo *philo, int position, int *status);
 int			to_eat(t_philo *philo);
