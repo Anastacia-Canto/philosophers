@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 13:47:26 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 15:17:23 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_data		*data(void);
 void		parse(char **argv);
 void		*philosophers(void *args);
 int			create_threads(void);
+void		*check(void *args);
 void		init_mutexes(void);
 void		destroy_mutexes(void);
 /*Routine*/
@@ -73,6 +74,6 @@ int			ft_atoi(const char *str);
 long long	timer(void);
 void		print(t_philo *philo, char *msg);
 void		to_wait(long long time);
-int			check_life(t_philo *philo);
+int			check_meals(t_philo *philo);
 
 #endif

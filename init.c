@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:45:35 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 14:16:36 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 15:56:51 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*philosophers(void *args)
 
 	philo = args;
 	init_philos(philo);
-	while (data()->death == false && philo->finish == false)
+	while (philo->finish == false && data()->death == false)
 	{
 		take_forks(philo, philo->right, &philo->right_status);
 		if (data()->nb_philo == 1)
@@ -39,10 +39,27 @@ void	init_philos(t_philo *philo)
 	define_forks(philo);
 }
 
+// void	*check(void *args)
+// {
+// 	t_philo	*philo;
+
+// 	philo = args;
+// 	while (data()->death == false)
+// 	{
+// 		if (timer() - philo->last_meal >= data()->time_to_die)
+// 		{
+// 			print(philo, "died");
+// 			data()->death = true;
+// 		}
+// 	}
+// 	return (NULL);
+// }
+
 int	create_threads(void)
 {
 	t_philo		*philo;
 	int			i;
+	// pthread_t	monitor;
 
 	philo = data()->philo;
 	philo = malloc(sizeof(t_philo) * data()->nb_philo);
@@ -56,6 +73,8 @@ int	create_threads(void)
 		philo[i].id = i + 1;
 		philo[i].meals = 0;
 		pthread_create(&philo[i].tid, NULL, philosophers, &philo[i]);
+		// pthread_create(&monitor, NULL, check, &philo[i]);
+		// pthread_detach(monitor);
 	}
 	i = -1;
 	while (++i < data()->nb_philo)
