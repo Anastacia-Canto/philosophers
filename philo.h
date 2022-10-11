@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 10:47:13 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 12:03:22 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_data
 t_data		*data(void);
 void		parse(char **argv);
 void		*philosophers(void *args);
-void		*check(void *args);
 int			create_threads(void);
 /*Routine*/
 int			define_forks(t_philo *philo);
@@ -65,5 +64,6 @@ int			ft_atoi(const char *str);
 long long	timer(void);
 void		print(t_philo *philo, char *msg);
 void		to_wait(long long time);
+int			check_life(t_philo *philo);
 
 #endif

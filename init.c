@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:45:35 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 10:58:31 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 12:01:58 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	*philosophers(void *args)
 			{
 				pthread_mutex_unlock(&data()->forks[philo->left]);
 				to_wait(data()->time_to_die);
+				print(philo, "died");
 				break ;
 			}
 			take_forks(philo, philo->right);
@@ -44,26 +45,9 @@ void	*philosophers(void *args)
 	return (NULL);
 }
 
-void	*check(void *args)
-{
-	t_philo	*philo;
-
-	philo = args;
-	while (data()->death == false)
-	{
-		if (timer() - philo->last_meal > data()->time_to_die)
-		{
-			print(philo, "died");
-			data()->death = true;
-		}
-	}
-	return (NULL);
-}
-
 int	create_threads(void)
 {
 	t_philo		*philo;
-	pthread_t	monitor;
 	int			i;
 
 	philo = data()->philo;
@@ -80,13 +64,11 @@ int	create_threads(void)
 	{
 		philo[i].id = i + 1;
 		pthread_create(&philo[i].tid, NULL, philosophers, &philo[i]);
-		pthread_create(&monitor, NULL, check, &philo[i]);
-		pthread_detach(monitor);
 	}
 	i = -1;
 	while (++i < data()->nb_philo)
 		pthread_join(philo[i].tid, NULL);
-	// pthread_mutex_destroy(&data()->mutex_death);
+	pthread_mutex_destroy(&data()->mutex_death);
 	i = -1;
 	while (++i < data()->nb_philo)
 		pthread_mutex_destroy(&data()->forks[i]);
