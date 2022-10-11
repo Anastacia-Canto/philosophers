@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 12:03:22 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 12:59:22 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef struct s_philo
 	long long	last_meal;
 	int			left;
 	int			right;
+	int			left_status;
+	int			right_status;
+	int			meals;
+	int			finish;
 }	t_philo;
 
 typedef struct s_data
@@ -54,8 +58,9 @@ void		*philosophers(void *args);
 int			create_threads(void);
 /*Routine*/
 int			define_forks(t_philo *philo);
-int			take_forks(t_philo *philo, int position);
+int			take_forks(t_philo *philo, int position, int *status);
 int			to_eat(t_philo *philo);
+int			leave_forks(t_philo *philo, int *l_status, int *r_status);
 int			to_sleep_and_think(t_philo *philo);
 /*Utils*/
 int			ft_isdigit(int c);

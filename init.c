@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:45:35 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 12:01:58 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/11 13:00:06 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void	*philosophers(void *args)
 	philo = args;
 	philo->start = timer();
 	philo->last_meal = philo->start;
+	philo->finish = false;
 	define_forks(philo);
-	while (data()->death == false)
+	while (data()->death == false && philo->finish == false)
 	{
 		if (philo->id == data()->nb_philo)
 		{
-			take_forks(philo, philo->left);
+			take_forks(philo, philo->left, &philo->left_status);
 			if (data()->nb_philo == 1)
 			{
 				pthread_mutex_unlock(&data()->forks[philo->left]);
@@ -32,14 +33,15 @@ void	*philosophers(void *args)
 				print(philo, "died");
 				break ;
 			}
-			take_forks(philo, philo->right);
+			take_forks(philo, philo->right, &philo->right_status);
 		}
 		else
 		{
-			take_forks(philo, philo->right);
-			take_forks(philo, philo->left);
+			take_forks(philo, philo->right, &philo->right_status);
+			take_forks(philo, philo->left, &philo->left_status);
 		}
 		to_eat(philo);
+		leave_forks(philo, &philo->left_status, &philo->right_status);
 		to_sleep_and_think(philo);
 	}
 	return (NULL);
@@ -63,6 +65,7 @@ int	create_threads(void)
 	while (++i < data()->nb_philo)
 	{
 		philo[i].id = i + 1;
+		philo[i].meals = 0;
 		pthread_create(&philo[i].tid, NULL, philosophers, &philo[i]);
 	}
 	i = -1;
