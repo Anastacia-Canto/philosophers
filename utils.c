@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:54:02 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/13 13:27:52 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/13 14:48:48 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,6 @@ void	to_wait(long long time)
 
 int	check_meals(t_philo *philo)
 {
-	if (timer() - philo->last_meal >= data()->time_to_die)
-	{
-		data()->death = 1;
-		return (1);
-	}
 	if (philo->meals == data()->nb_meals && philo->meals > 0)
 	{
 		philo->finish = 1;

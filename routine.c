@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:39:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/13 13:24:42 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/13 15:01:31 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,21 @@ int	define_forks(t_philo *philo)
 
 int	take_forks(t_philo *philo, int position, int *status)
 {
-	if (check_meals(philo) == 0)
+	if (!philo->finish && !data()->death)
 	{
 		if (pthread_mutex_lock(&data()->forks[position]) == 0)
 		{
 			*status = true;
-			check_meals(philo);
 			print(philo, "has taken a fork");
 			return (0);
 		}
 	}
-	check_meals(philo);
 	return (0);
 }
 
 int	to_eat(t_philo *philo)
 {
-	if (check_meals(philo) == 0)
+	if (!philo->finish && !data()->death)
 	{
 		if (philo->meals == 0 || philo->meals <= data()->nb_meals)
 		{
@@ -78,13 +76,11 @@ int	leave_forks(t_philo *philo, int *l_status, int *r_status)
 
 int	to_sleep_and_think(t_philo *philo)
 {	
-	if (check_meals(philo) == 0)
+	if (!philo->finish && !data()->death)
 	{
 		print(philo, "is sleeping");
 		to_wait(data()->time_to_sleep);
-		check_meals(philo);
 		print(philo, "is thinking");
 	}
-	check_meals(philo);
 	return (0);
 }

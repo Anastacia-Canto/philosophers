@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/11 15:17:23 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/13 15:39:49 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		*philosophers(void *args);
 int			create_threads(void);
 void		*check(void *args);
 void		init_mutexes(void);
-void		destroy_mutexes(void);
+void		join_destroy_free(t_philo *philo);
 /*Routine*/
 void		init_philos(t_philo *philo);
 int			define_forks(t_philo *philo);

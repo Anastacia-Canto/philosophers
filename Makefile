@@ -6,7 +6,7 @@
 #    By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/07 12:55:24 by anastacia         #+#    #+#              #
-#    Updated: 2022/10/07 15:40:07 by anastacia        ###   ########.fr        #
+#    Updated: 2022/10/13 15:35:39 by anastacia        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ $(VERBOSE).SILENT:
 
 NAME = philo
 
-SRC = main parse utils ft_atoi init routine\
+SRC = main threads parse utils ft_atoi init routine\
 
 CC = gcc
 RM = rm -f
