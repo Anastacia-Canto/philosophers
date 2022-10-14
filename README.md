@@ -36,3 +36,8 @@ the simulation stops. If not specified, the simulation stops when a philosopher 
 ./philo [number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep] <number_of_times_each_philosopher_must_eat>
 
 ```
+ 
+ 
+Some useful links to learn about threads:
+- [Unix Threads in C](https://www.youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+- [Linux Tutorial: POSIX Threads](https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html)
