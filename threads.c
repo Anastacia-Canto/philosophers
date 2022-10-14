@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:35:28 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/13 15:37:06 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/14 15:28:18 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,16 @@ void	*philosophers(void *args)
 	init_philos(philo);
 	while (!philo->finish && !data()->death)
 	{
-		take_forks(philo, philo->right, &philo->right_status);
 		if (data()->nb_philo == 1)
+		{
+			take_forks(philo);
 			to_wait(data()->time_to_die);
-		take_forks(philo, philo->left, &philo->left_status);
+			leave_forks(philo);
+			break ;
+		}
+		take_forks(philo);
 		to_eat(philo);
-		leave_forks(philo, &philo->left_status, &philo->right_status);
+		leave_forks(philo);
 		to_sleep_and_think(philo);
 	}
 	return (NULL);
@@ -46,11 +50,16 @@ void	*check(void *args)
 	philo = args;
 	while (!philo->finish && !data()->death)
 	{
-		if (timer() - philo->last_meal >= data()->time_to_die)
+		usleep(8000);
+		pthread_mutex_lock(&data()->mutex_death);
+		if (timer() - philo->last_meal >= data()->time_to_die && !data()->death)
 		{
 			data()->death = 1;
+			pthread_mutex_unlock(&data()->mutex_death);
 			printf("%lld %d died\n", (timer() - philo->start), philo->id);
 		}
+		else
+			pthread_mutex_unlock(&data()->mutex_death);
 	}
 	return (NULL);
 }

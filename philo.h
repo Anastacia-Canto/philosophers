@@ -6,7 +6,7 @@
 /*   By: anastacia <anastacia@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:53:51 by anastacia         #+#    #+#             */
-/*   Updated: 2022/10/13 15:39:49 by anastacia        ###   ########.fr       */
+/*   Updated: 2022/10/14 15:12:50 by anastacia        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ enum e_bool
 typedef struct s_philo
 {
 	pthread_t	tid;
+	pthread_t	monitor;
 	int			id;
 	long long	start;
 	long long	last_meal;
@@ -63,9 +64,9 @@ void		join_destroy_free(t_philo *philo);
 /*Routine*/
 void		init_philos(t_philo *philo);
 int			define_forks(t_philo *philo);
-int			take_forks(t_philo *philo, int position, int *status);
+int			take_forks(t_philo *philo);
 int			to_eat(t_philo *philo);
-int			leave_forks(t_philo *philo, int *l_status, int *r_status);
+int			leave_forks(t_philo *philo);
 int			to_sleep_and_think(t_philo *philo);
 /*Utils*/
 int			ft_isdigit(int c);
