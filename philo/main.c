@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc == 5 || argc == 6)
+	if ((argc == 5 || argc == 6) && ft_atoi(argv[1]) > 0)
 		parse(argv);
 	else
 	{
